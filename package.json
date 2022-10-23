@@ -13,8 +13,9 @@
     "./dist/**/*"
   ],
   "scripts": {
+    "build": "npm run clean && tsc && npm run bundle",
     "clean": "rm -rf ./dist",
-    "build": "npm run clean && tsc"
+    "bundle": "esbuild dist/esm/index.js --bundle --minify --target=es2017 --tree-shaking=false --outfile=dist/cdn/index.js"
   },
   "repository": {
     "type": "git",
@@ -32,6 +33,7 @@
   },
   "homepage": "https://github.com/mschreiber68/tabs#readme",
   "devDependencies": {
+    "esbuild": "^0.15.12",
     "typescript": "^4.8.4"
   }
 }
