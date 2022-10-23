@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en">
+<body>
+    <h3>No styles</h3>
+    <p>Click the tab text, or use the tab key and arrow keys to change focus.</p>
+    <x-tabs>
+        <x-tab-list>
+            <x-tab>Tab 1</x-tab>
+            <x-tab selected>Tab 2</x-tab>
+            <x-tab>Tab 3</x-tab>
+        </x-tab-list>
+        <x-tab-panel hidden>Panel 1</x-tab-panel>
+        <x-tab-panel>Panel 2</x-tab-panel>
+        <x-tab-panel hidden>Panel 3</x-tab-panel>
+    </x-tabs>
+
+    <h3>Styled and nested tabs</h3>
+    <style>
+        x-tabs[tabs-id="outer"] {
+            display: flex;
+            border: 1px solid #ccc;
+            max-width: 400px;
+        }
+        x-tabs-list[tabs-id="outer"] {
+            display: flex;
+            flex-direction: column;
+        }
+        x-tab[tabs-id="outer"] {
+            cursor: pointer;
+            display: block;
+            background: rgb(2,0,36);
+            background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(9,9,121,1) 35%, rgba(0,212,255,1) 100%);
+            color: white;
+            padding: 20px 40px;
+        }
+        x-tab[tabs-id="outer"][selected] {
+            font-weight: bold;
+        }
+        x-tab-panel[tabs-id="outer"] {
+            padding: 12px;
+        }
+        x-tab-list[tabs-id="inner"] {
+            display: flex;
+        }
+        x-tab[tabs-id="inner"] {
+            padding: 6px 12px;
+            border: 1px solid #ccc;
+            border-radius: 8px 8px 0 0;
+        }
+        x-tab[tabs-id="inner"][selected] {
+            border-bottom: 3px solid blue;
+        }
+
+    </style>
+    <x-tabs class="nestedDemo" tabs-id="outer">
+        <x-tab-list tabs-id="outer" aria-orientation="vertical">
+            <x-tab tabs-id="outer" selected>Tab 1</x-tab>
+            <x-tab tabs-id="outer">Tab 2</x-tab>
+            <x-tab tabs-id="outer">Tab 3</x-tab>
+        </x-tab-list>
+        <x-tab-panel tabs-id="outer">
+            <x-tabs tabs-id="inner">
+                <x-tab-list tabs-id="inner">
+                    <x-tab tabs-id="inner">Tab 1</x-tab>
+                    <x-tab tabs-id="inner" selected>Tab 2</x-tab>
+                    <x-tab tabs-id="inner">Tab 3</x-tab>
+                </x-tab-list>
+                <x-tab-panel tabs-id="inner" hidden>Inner Panel 1</x-tab-panel>
+                <x-tab-panel tabs-id="inner">Inner Panel 2</x-tab-panel>
+                <x-tab-panel tabs-id="inner" hidden>Inner Panel 3</x-tab-panel>
+            </x-tabs>
+        </x-tab-panel>
+        <x-tab-panel tabs-id="outer" hidden>Outer Panel 2</x-tab-panel>
+        <x-tab-panel tabs-id="outer" hidden>Outer Panel 3</x-tab-panel>
+    </x-tabs>
+
+<script src="index.js"></script>
+</body>
