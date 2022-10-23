@@ -1,0 +1,37 @@
+{
+  "name": "@mschreiber68/tabs",
+  "version": "0.0.1",
+  "description": "A set of web components to implement the tab UI pattern.",
+  "type": "module",
+  "exports": {
+    ".": {
+      "import": "./dist/esm/index.js",
+      "types": "./dist/esm/types/index.d.ts"
+    }
+  },
+  "files": [
+    "./dist/**/*"
+  ],
+  "scripts": {
+    "clean": "rm -rf ./dist",
+    "build": "npm run clean && tsc"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mschreiber68/tabs.git"
+  },
+  "keywords": [
+    "component",
+    "tab",
+    "tabs"
+  ],
+  "author": "Mike Schreiber",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/mschreiber68/tabs/issues"
+  },
+  "homepage": "https://github.com/mschreiber68/tabs#readme",
+  "devDependencies": {
+    "typescript": "^4.8.4"
+  }
+}

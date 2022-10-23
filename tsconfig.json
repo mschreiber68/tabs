@@ -1,0 +1,19 @@
+{
+  "compilerOptions": {
+    "strict": true,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "forceConsistentCasingInFileNames": true,
+    "skipLibCheck": true,
+    "checkJs": true,
+    "allowJs": true,
+    "declaration": true,
+    "declarationMap": true,
+    "lib": ["ES2021", "DOM"],
+    "target": "ES2021",
+    "module": "ESNext",
+    "outDir": "./dist/esm",
+    "declarationDir": "./dist/esm/types"
+  },
+  "include": ["src/**/*"]
+}
