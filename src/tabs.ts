@@ -4,30 +4,56 @@ import TabList from "./tabList";
 import TabPanel from "./tabPanel";
 
 export default class Tabs extends HTMLElement {
+  private mutationObserver?: MutationObserver;
+  
   public connectedCallback(): void {
     this.linkPanelsAria();
+
+    this.mutationObserver = new MutationObserver(this.onMutation);
+    this.mutationObserver.observe(this, { childList: true, subtree: true });
+
     this.addEventListener('tab-click', this.onTabClick);
     this.addEventListener('keydown', this.onKeyDown);
   }
 
-  private get tabsIdSelector(): string {
-    const tabsId = this.getAttribute('tabs-id');
-    return tabsId ? `[tabs-id="${tabsId}"]` : '';
+  public disconnectedCallback(): void {
+    this.mutationObserver?.disconnect();
+  }
+
+  private onMutation = (mutations: MutationRecord[]): void => {
+    for (const mutation of mutations) {
+      const movedNodes = Array.from(mutation.addedNodes).concat(Array.from(mutation.removedNodes));
+
+      for (const node of movedNodes) {
+        if (!(node instanceof Element)) continue;
+        if (!['tab', 'tabpanel'].includes(node.getAttribute('role') || '')) continue;
+        if (this.getAttribute('data-tabs') !== node.getAttribute('data-tabs')) continue;
+
+        this.linkPanelsAria();
+        if (!this.selectedTab) this.selectFirstTab();
+        return;
+      }
+    }
+  }
+
+  private get dataTabsSelector(): string {
+    const attrValue = this.getAttribute('data-tabs');
+    return attrValue ? `[data-tabs="${attrValue}"]` : '';
   }
 
   private get tabs(): Tab[] {
     const tabList = this.tabList;
     if (!tabList) return [];
 
-    return Array.from(tabList.querySelectorAll(`[role="tab"]${this.tabsIdSelector}`));
+    return Array.from(tabList.querySelectorAll(`[role="tab"]${this.dataTabsSelector}`));
   }
 
   private get panels(): TabPanel[] {
-    return Array.from(this.querySelectorAll(`[role="tabpanel"]${this.tabsIdSelector}`));
+    return Array.from(this.querySelectorAll(`[role="tabpanel"]${this.dataTabsSelector}`));
   }
 
   private get tabList(): TabList|null {
-    return this.querySelector(`[role="tablist"]${this.tabsIdSelector}`);
+    return this.querySelector(`[role="tablist"]${this.dataTabsSelector}`);
   }
 
   private get selectedTab(): Tab|null {
@@ -43,7 +69,7 @@ export default class Tabs extends HTMLElement {
     return this.tabList?.getAttribute('aria-orientation') || 'horizontal';
   }
 
-  private linkPanelsAria(): void {
+  private linkPanelsAria = (): void => {
     const tabs = this.tabs;
     const panels = this.panels;
 

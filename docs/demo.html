@@ -16,16 +16,16 @@
 
     <h3>Styled and nested tabs</h3>
     <style>
-        x-tabs[tabs-id="outer"] {
+        x-tabs[data-tabs="outer"] {
             display: flex;
             border: 1px solid #ccc;
             max-width: 400px;
         }
-        x-tabs-list[tabs-id="outer"] {
+        x-tabs-list[data-tabs="outer"] {
             display: flex;
             flex-direction: column;
         }
-        x-tab[tabs-id="outer"] {
+        x-tab[data-tabs="outer"] {
             cursor: pointer;
             display: block;
             background: rgb(2,0,36);
@@ -33,46 +33,95 @@
             color: white;
             padding: 20px 40px;
         }
-        x-tab[tabs-id="outer"][selected] {
+        x-tab[data-tabs="outer"][selected] {
             font-weight: bold;
         }
-        x-tab-panel[tabs-id="outer"] {
+        x-tab-panel[data-tabs="outer"] {
             padding: 12px;
         }
-        x-tab-list[tabs-id="inner"] {
+        x-tab-list[data-tabs="inner"] {
             display: flex;
         }
-        x-tab[tabs-id="inner"] {
+        x-tab[data-tabs="inner"] {
             padding: 6px 12px;
             border: 1px solid #ccc;
             border-radius: 8px 8px 0 0;
         }
-        x-tab[tabs-id="inner"][selected] {
+        x-tab[data-tabs="inner"][selected] {
             border-bottom: 3px solid blue;
         }
 
     </style>
-    <x-tabs class="nestedDemo" tabs-id="outer">
-        <x-tab-list tabs-id="outer" aria-orientation="vertical">
-            <x-tab tabs-id="outer" selected>Tab 1</x-tab>
-            <x-tab tabs-id="outer">Tab 2</x-tab>
-            <x-tab tabs-id="outer">Tab 3</x-tab>
+    <x-tabs data-tabs="outer">
+        <x-tab-list data-tabs="outer" aria-orientation="vertical">
+            <x-tab data-tabs="outer" selected>Tab 1</x-tab>
+            <x-tab data-tabs="outer">Tab 2</x-tab>
+            <x-tab data-tabs="outer">Tab 3</x-tab>
         </x-tab-list>
-        <x-tab-panel tabs-id="outer">
-            <x-tabs tabs-id="inner">
-                <x-tab-list tabs-id="inner">
-                    <x-tab tabs-id="inner">Tab 1</x-tab>
-                    <x-tab tabs-id="inner" selected>Tab 2</x-tab>
-                    <x-tab tabs-id="inner">Tab 3</x-tab>
+        <x-tab-panel data-tabs="outer">
+            <x-tabs data-tabs="inner">
+                <x-tab-list data-tabs="inner">
+                    <x-tab data-tabs="inner">Tab 1</x-tab>
+                    <x-tab data-tabs="inner" selected>Tab 2</x-tab>
+                    <x-tab data-tabs="inner">Tab 3</x-tab>
                 </x-tab-list>
-                <x-tab-panel tabs-id="inner" hidden>Inner Panel 1</x-tab-panel>
-                <x-tab-panel tabs-id="inner">Inner Panel 2</x-tab-panel>
-                <x-tab-panel tabs-id="inner" hidden>Inner Panel 3</x-tab-panel>
+                <x-tab-panel data-tabs="inner" hidden>Inner Panel 1</x-tab-panel>
+                <x-tab-panel data-tabs="inner">Inner Panel 2</x-tab-panel>
+                <x-tab-panel data-tabs="inner" hidden>Inner Panel 3</x-tab-panel>
             </x-tabs>
         </x-tab-panel>
-        <x-tab-panel tabs-id="outer" hidden>Outer Panel 2</x-tab-panel>
-        <x-tab-panel tabs-id="outer" hidden>Outer Panel 3</x-tab-panel>
+        <x-tab-panel data-tabs="outer" hidden>Outer Panel 2</x-tab-panel>
+        <x-tab-panel data-tabs="outer" hidden>Outer Panel 3</x-tab-panel>
     </x-tabs>
+
+    <h3>Dynamically add and remove tabs every 5 seconds</h3>
+    <style>
+        #dynamicDemo x-tab-list {
+            display: flex;
+        }
+        #dynamicDemo x-tab {
+            padding: 6px 12px;
+            border: 1px solid #ccc;
+            border-radius: 8px 8px 0 0;
+        }
+        #dynamicDemo x-tab[selected] {
+            border-bottom: 3px solid blue;
+        }
+    </style>
+    <x-tabs id="dynamicDemo">
+        <x-tab-list>
+            <x-tab selected>Tab 1</x-tab>
+            <x-tab>Tab 2</x-tab>
+            <x-tab>Tab 3</x-tab>
+        </x-tab-list>
+        <x-tab-panel>Panel 1</x-tab-panel>
+        <x-tab-panel hidden>Panel 2</x-tab-panel>
+        <x-tab-panel hidden>Panel 3</x-tab-panel>
+    </x-tabs>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            setInterval(() => {
+                let tab = dynamicDemo.querySelector('#dynamicTab');
+                let panel = dynamicDemo.querySelector('#dynamicPanel');
+                if (tab) {
+                    tab.remove();
+                    panel.remove();
+                    return;
+                }
+
+                tab = document.createElement('x-tab');
+                tab.textContent = 'Tab 4';
+                tab.id = 'dynamicTab';
+                panel = document.createElement('x-tab-panel');
+                panel.textContent = 'Panel 4';
+                panel.id = 'dynamicPanel';
+                panel.hidden = true;
+
+                dynamicDemo.appendChild(panel);
+                dynamicDemo.querySelector('x-tab-list').append(tab);
+            }, 5000)
+        })
+    </script>
 
 <script src="index.js"></script>
 </body>
