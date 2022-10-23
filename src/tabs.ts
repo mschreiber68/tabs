@@ -12,7 +12,7 @@ export default class Tabs extends HTMLElement {
 
   private get tabsIdSelector(): string {
     const tabsId = this.getAttribute('tabs-id');
-    return tabsId ? `[tabs-id="${tabsId}]` : '';
+    return tabsId ? `[tabs-id="${tabsId}"]` : '';
   }
 
   private get tabs(): Tab[] {
@@ -132,6 +132,7 @@ export default class Tabs extends HTMLElement {
   }
 
   private onTabClick = (event: Event): void => {
+    event.stopPropagation();
     this.selectTab(event.target as Tab);
   }
 
@@ -193,6 +194,7 @@ export default class Tabs extends HTMLElement {
 
     if (isHandled) {
       event.preventDefault();
+      event.stopPropagation();
     }
   }
 }

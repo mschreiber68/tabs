@@ -40,7 +40,7 @@ export default class Tab extends HTMLElement {
   }
 
   private onClick = (): void => {
-    this.dispatchEvent(new CustomEvent('tab-click'));
+    this.dispatchEvent(new CustomEvent('tab-click', { bubbles: true}));
   }
 
   private upgradeProperty(prop: string): void {
