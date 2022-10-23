@@ -123,5 +123,56 @@
         })
     </script>
 
+    <h3>Used inside a Vue component</h3>
+    <style>
+        .vueDemo x-tab-list {
+            display: flex;
+        }
+        .vueDemo x-tab {
+            padding: 6px 12px;
+            border: 1px solid #ccc;
+            border-radius: 8px 8px 0 0;
+        }
+        .vueDemo x-tab[selected] {
+            border-bottom: 3px solid blue;
+        }
+    </style>
+    <div id="vueApp"></div>
+    <script type="module">
+        import Vue from 'https://cdn.jsdelivr.net/npm/vue@2.7.13/dist/vue.esm.browser.js'
+        new Vue({
+            el: '#vueApp',
+            data: {
+                selectedTab: null,
+                showDynamicTab: false,
+            },
+            methods: {
+                onTabSelect(event) {
+                    console.log('Tab Selected');
+                    this.selectedTab = event.detail.tab.id;
+                }
+            },
+            mounted() {
+                this.$refs.tabs.linkPanelsAria();
+                setInterval(() => this.showDynamicTab = !this.showDynamicTab, 3000)
+            },
+            template: `
+                <x-tabs ref="tabs" class="vueDemo" @tab-select="onTabSelect">
+                    <x-tab-list>
+                        <x-tab selected>Tab 1</x-tab>
+                        <x-tab>Tab 2</x-tab>
+                        <x-tab>Tab 3</x-tab>
+                        <x-tab v-if="showDynamicTab">Tab 4</x-tab>
+                    </x-tab-list>
+                    <x-tab-panel>Panel 1</x-tab-panel>
+                    <x-tab-panel hidden>Panel 2</x-tab-panel>
+                    <x-tab-panel hidden>Panel 3</x-tab-panel>
+                    <x-tab-panel v-if="showDynamicTab" hidden>Panel 4</x-tab-panel>
+                    <h4>Selected tab: {{ selectedTab }}</h4>
+                </x-tabs>
+            `
+        })
+    </script>
+
 <script src="index.js"></script>
 </body>

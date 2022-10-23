@@ -20,6 +20,10 @@ export default class Tabs extends HTMLElement {
     this.mutationObserver?.disconnect();
   }
 
+  public init(): void {
+    this.linkPanelsAria();
+  }
+
   private onMutation = (mutations: MutationRecord[]): void => {
     for (const mutation of mutations) {
       const movedNodes = Array.from(mutation.addedNodes).concat(Array.from(mutation.removedNodes));
