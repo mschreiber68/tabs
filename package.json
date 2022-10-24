@@ -1,6 +1,6 @@
 {
   "name": "@mschreiber68/tabs",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "A set of web components to implement the tab UI pattern.",
   "type": "module",
   "exports": {

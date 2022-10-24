@@ -16,16 +16,16 @@
 
     <h3>Styled and nested tabs</h3>
     <style>
-        x-tabs[data-tabs="outer"] {
+        x-tabs.outer {
             display: flex;
             border: 1px solid #ccc;
             max-width: 400px;
         }
-        x-tabs-list[data-tabs="outer"] {
+        x-tabs-list.outer {
             display: flex;
             flex-direction: column;
         }
-        x-tab[data-tabs="outer"] {
+        x-tab.outer {
             cursor: pointer;
             display: block;
             background: rgb(2,0,36);
@@ -33,45 +33,45 @@
             color: white;
             padding: 20px 40px;
         }
-        x-tab[data-tabs="outer"][selected] {
+        x-tab[selected].outer {
             font-weight: bold;
         }
-        x-tab-panel[data-tabs="outer"] {
+        x-tab-panel.outer {
             padding: 12px;
         }
-        x-tab-list[data-tabs="inner"] {
+        x-tab-list.inner {
             display: flex;
         }
-        x-tab[data-tabs="inner"] {
+        x-tab.inner {
             padding: 6px 12px;
             border: 1px solid #ccc;
             border-radius: 8px 8px 0 0;
         }
-        x-tab[data-tabs="inner"][selected] {
+        x-tab[selected].inner {
             border-bottom: 3px solid blue;
         }
 
     </style>
-    <x-tabs data-tabs="outer">
-        <x-tab-list data-tabs="outer" aria-orientation="vertical">
-            <x-tab data-tabs="outer" selected>Tab 1</x-tab>
-            <x-tab data-tabs="outer">Tab 2</x-tab>
-            <x-tab data-tabs="outer">Tab 3</x-tab>
+    <x-tabs class="outer">
+        <x-tab-list class="outer" aria-orientation="vertical">
+            <x-tab class="outer" selected>Tab 1</x-tab>
+            <x-tab class="outer">Tab 2</x-tab>
+            <x-tab class="outer">Tab 3</x-tab>
         </x-tab-list>
-        <x-tab-panel data-tabs="outer">
-            <x-tabs data-tabs="inner">
-                <x-tab-list data-tabs="inner">
-                    <x-tab data-tabs="inner">Tab 1</x-tab>
-                    <x-tab data-tabs="inner" selected>Tab 2</x-tab>
-                    <x-tab data-tabs="inner">Tab 3</x-tab>
+        <x-tab-panel class="outer" >
+            <x-tabs class="inner" >
+                <x-tab-list class="inner">
+                    <x-tab class="inner">Tab 1</x-tab>
+                    <x-tab class="inner" selected>Tab 2</x-tab>
+                    <x-tab class="inner">Tab 3</x-tab>
                 </x-tab-list>
-                <x-tab-panel data-tabs="inner" hidden>Inner Panel 1</x-tab-panel>
-                <x-tab-panel data-tabs="inner">Inner Panel 2</x-tab-panel>
-                <x-tab-panel data-tabs="inner" hidden>Inner Panel 3</x-tab-panel>
+                <x-tab-panel class="inner" hidden>Inner Panel 1</x-tab-panel>
+                <x-tab-panel class="inner">Inner Panel 2</x-tab-panel>
+                <x-tab-panel class="inner" hidden>Inner Panel 3</x-tab-panel>
             </x-tabs>
         </x-tab-panel>
-        <x-tab-panel data-tabs="outer" hidden>Outer Panel 2</x-tab-panel>
-        <x-tab-panel data-tabs="outer" hidden>Outer Panel 3</x-tab-panel>
+        <x-tab-panel class="outer" hidden>Outer Panel 2</x-tab-panel>
+        <x-tab-panel class="outer" hidden>Outer Panel 3</x-tab-panel>
     </x-tabs>
 
     <h3>Dynamically add and remove tabs every 5 seconds</h3>
@@ -174,5 +174,5 @@
         })
     </script>
 
-<script src="https://unpkg.com/@mschreiber68/tabs@latest/dist/cdn/index.js"></script>
+    <script src="https://unpkg.com/@mschreiber68/tabs@latest/dist/cdn/index.js"></script>
 </body>
