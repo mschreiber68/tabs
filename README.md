@@ -52,32 +52,13 @@ To set the orientation, set the `aria-orientation` attribute on a `<x-tab-list>`
 ```
 The default orientation is horizontal.
 
-### Scoping
-No component element is required to be a direct child of another. 
-Currently, the cost of this flexibility is that if you have nested `<x-tabs>` in the DOM, you need to scope them with a unique `data-tabs` attribute:
-```html
-<x-tabs data-tabs="outer">
-    <x-tab-list data-tabs="outer"
-        <x-tab data-tabs="outer" selected>Tab 1</x-tab>
-        <x-tab data-tabs="outer">Tab 2</x-tab>
-        <x-tab data-tabs="outer">Tab 3</x-tab>
-    </x-tab-list>
-    <x-tab-panel data-tabs="outer">
-        <x-tabs data-tabs="inner">
-            <x-tab-list data-tabs="inner">
-                <x-tab data-tabs="inner">Tab 1</x-tab>
-                <x-tab data-tabs="inner" selected>Tab 2</x-tab>
-                <x-tab data-tabs="inner">Tab 3</x-tab>
-            </x-tab-list>
-            <x-tab-panel data-tabs="inner" hidden>Inner Panel 1</x-tab-panel>
-            <x-tab-panel data-tabs="inner">Inner Panel 2</x-tab-panel>
-            <x-tab-panel data-tabs="inner" hidden>Inner Panel 3</x-tab-panel>
-        </x-tabs>
-    </x-tab-panel>
-    <x-tab-panel data-tabs="outer" hidden>Outer Panel 2</x-tab-panel>
-    <x-tab-panel data-tabs="outer" hidden>Outer Panel 3</x-tab-panel>
-</x-tabs>
-```
+### Features
+* 100% styleable, no CSS is included. Rely on the `selected` and `hidden` attributes of tabs and panels to style different states.
+* SEO-friendly
+* Accessible
+* Compatible with other frontend frameworks, or no framework. (See demo page below)
+* Automatically supports DOM updates such as tabs being added or removed. (See demo page below)
+* Supports nested tabs. (See demo page below)
 
 ### Usage in other frameworks
 For frameworks like Vue, you will need to call the `init()` method when the surrounding Vue component is mounted:
